@@ -319,7 +319,7 @@ dialog::backdrop{background:rgba(5,10,25,.45)}
 const $ = s => document.querySelector(s);
 const KEY = 'carnet-aac-v1';
 const TAGS = [['nuit','Nuit'],['pluie','Pluie'],['ville','Ville'],['route','Route'],['autoroute','Autoroute']];
-const DEF = { settings:{prenom:'', dateDebut:'', objectifKm:3000, jalonKm:1000, kmAvant:0, autoStart:true, autoStop:true}, trips:[], current:null };
+const DEF = { settings:{prenom:'', dateDebut:'', objectifKm:3000, jalonKm:1000, kmAvant:2014, autoStart:true, autoStop:true}, trips:[], current:null };
 const WALK_WINDOW_MS = 180000;   // 3 min of walking pace ends the trip
 const WALK_MIN_M = 150;          // ...if at least 150 m were covered on foot
 const WALK_MAX_KMH = 8;          // nothing faster than 8 km/h in that window
