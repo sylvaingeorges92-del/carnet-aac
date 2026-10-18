@@ -347,7 +347,9 @@ function load(){
     const raw = localStorage.getItem(KEY);
     if(!raw) return JSON.parse(JSON.stringify(DEF));
     const o = JSON.parse(raw);
-    return { settings:{...DEF.settings, ...(o.settings||{})}, trips:Array.isArray(o.trips)?o.trips:[], current:o.current||null };
+    const st={...DEF.settings, ...(o.settings||{})};
+    if(!(st.kmAvant>0) && !st.kmAvantSet) st.kmAvant=DEF.settings.kmAvant;   // installed before the starting mileage was set
+    return { settings:st, trips:Array.isArray(o.trips)?o.trips:[], current:o.current||null };
   }catch(e){ return JSON.parse(JSON.stringify(DEF)); }
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast('Impossible d’enregistrer (mémoire pleine ?)'); } }
@@ -650,7 +652,7 @@ $('#btnSettings').addEventListener('click', ()=>{
 });
 $('#setForm').addEventListener('submit', e=>{
   e.preventDefault(); const f=e.target;
-  S.settings={ prenom:f.elements.prenom.value.trim(), dateDebut:f.elements.dateDebut.value||'', objectifKm:Math.max(1,Math.round(+f.elements.objectifKm.value||3000)), jalonKm:Math.max(0,Math.round(+f.elements.jalonKm.value||0)), kmAvant:Math.max(0,+String(f.elements.kmAvant.value).replace(',','.')||0), autoStart:f.elements.autoStart.checked, autoStop:f.elements.autoStop.checked };
+  S.settings={ prenom:f.elements.prenom.value.trim(), dateDebut:f.elements.dateDebut.value||'', objectifKm:Math.max(1,Math.round(+f.elements.objectifKm.value||3000)), jalonKm:Math.max(0,Math.round(+f.elements.jalonKm.value||0)), kmAvant:Math.max(0,+String(f.elements.kmAvant.value).replace(',','.')||0), autoStart:f.elements.autoStart.checked, autoStop:f.elements.autoStop.checked, kmAvantSet:true };
   save(); render(); closeDialog($('#dlgSettings')); toast('Réglages enregistrés.');
 });
 $('#setCancel').addEventListener('click', ()=>closeDialog($('#dlgSettings')));
