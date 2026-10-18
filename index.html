@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F4FBF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Carnet AAC">
+<meta name="description" content="Suivi GPS des kilomètres de conduite accompagnée : le suivi démarre à l’ouverture, OFF à l’arrivée.">
+<title>Carnet AAC</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: one-column phone app (max 480px). Control panel on top (ON/OFF switch + live counter),
+   the AAC figures below, then the trip log grouped by month. */
+:root{
+  --bg:#EEF2F8; --surface:#FFFFFF; --surface-2:#E4EAF4; --fg:#111A2E; --muted:#5A6577; --line:#D3DAE6;
+  --accent:#1F4FBF; --accent-ink:#FFFFFF; --accent-soft:#DCE6FB;
+  --mark:#E6B000; --good:#1D8A59; --warn:#B65A08; --danger:#B3261E; --rec:#D7263D; --rec-ink:#FFFFFF;
+  --display:"Big Shoulders Display","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --shadow:0 6px 20px rgba(17,26,46,.10);
+  --radius:18px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0C1220; --surface:#151E31; --surface-2:#1F2B45; --fg:#ECF1FA; --muted:#98A4BA; --line:#283652;
+    --accent:#7FA2F3; --accent-ink:#0B1631; --accent-soft:#1E3160;
+    --mark:#F0C32E; --good:#4FCB8E; --warn:#F2A64A; --danger:#F27E78; --rec:#FF5C6F; --rec-ink:#2A0A10;
+    --shadow:0 6px 20px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg)}
+body{margin:0;font:16px/1.45 var(--body);color:var(--fg);background:var(--bg);-webkit-text-size-adjust:100%;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.wrap{max-width:480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 40px;display:flex;flex-direction:column;gap:16px}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:800;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:30px;line-height:1}
+h2{font-size:24px;line-height:1}
+h3{font-size:20px;line-height:1.1}
+p{margin:0}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.disc{width:46px;height:46px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.04em;flex:none;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--accent)}
+.brand p{font-size:14px;color:var(--muted);min-width:0;overflow-wrap:anywhere}
+.icon-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;flex:none}
+.icon-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Control panel */
+.panel{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 18px 18px;display:flex;flex-direction:column;gap:18px}
+.panel.rec{box-shadow:0 0 0 2px var(--rec),var(--shadow)}
+.switch-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+.switch{position:relative;width:100%;max-width:340px;height:78px;border-radius:999px;border:0;padding:0;background:var(--surface-2);display:grid;grid-template-columns:1fr 1fr;align-items:center;cursor:pointer;font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:.12em;color:var(--muted);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.switch .knob{position:absolute;top:6px;left:6px;width:calc(50% - 6px);height:66px;border-radius:999px;background:var(--surface);box-shadow:0 3px 10px rgba(0,0,0,.18);transition:transform .25s ease,background-color .25s ease}
+.switch[aria-checked="true"]{background:var(--surface-2)}
+.switch[aria-checked="true"] .knob{transform:translateX(100%);background:var(--rec)}
+.switch .lbl{position:relative;z-index:1;text-align:center;padding-top:3px}
+.switch[aria-checked="false"] .lbl.off{color:var(--fg)}
+.switch[aria-checked="true"] .lbl.on{color:var(--rec-ink)}
+.switch-help{font-size:14px;color:var(--muted);text-align:center;text-wrap:balance}
+
+.live{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.live-km{font-family:var(--display);font-weight:800;font-size:clamp(84px,26vw,118px);line-height:.9;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--fg)}
+.live-km small{font-size:.32em;letter-spacing:.06em;margin-left:.1em;color:var(--muted)}
+.live-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font-size:15px;color:var(--muted)}
+.live-meta b{color:var(--fg);font-weight:700}
+.gps{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.gps .dot{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.gps.ok{color:var(--good)} .gps.ok .dot{background:var(--good);animation:pulse 1.4s ease-in-out infinite}
+.gps.weak{color:var(--warn)} .gps.weak .dot{background:var(--warn)}
+.gps.bad{color:var(--danger)} .gps.bad .dot{background:var(--danger)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.odo{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.odo-num{font-family:var(--display);font-weight:800;font-size:60px;line-height:1;font-variant-numeric:tabular-nums}
+.odo-num small{font-size:.38em;letter-spacing:.06em;color:var(--muted);margin-left:.08em}
+.odo-sub{font-size:14px;color:var(--muted);text-align:right}
+.meter{display:flex;flex-direction:column;gap:6px}
+.meter-track{position:relative;height:14px;border-radius:7px;background:var(--surface-2);overflow:visible}
+.meter-fill{position:absolute;inset:0 auto 0 0;border-radius:7px;background:var(--accent);min-width:0;transition:width .4s ease}
+.meter-tick{position:absolute;top:-5px;bottom:-5px;width:3px;margin-left:-1px;border-radius:2px;background:var(--mark)}
+.meter-labels{position:relative;height:34px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.meter-labels .l{position:absolute;left:0;top:0}
+.meter-labels .r{position:absolute;right:0;top:0}
+.meter-labels .t{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-weight:700;color:var(--fg);white-space:nowrap}
+.meter-labels .t span{display:block;font-weight:400;color:var(--muted)}
+.steps{display:grid;gap:8px;padding:0;margin:0;list-style:none;font-size:15px;counter-reset:s}
+.steps li{display:flex;gap:10px;align-items:flex-start}
+.steps li::before{counter-increment:s;content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--display);font-weight:800;font-size:15px;display:grid;place-items:center;padding-top:2px}
+
+/* Figures */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{background:var(--surface);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tile .v{font-family:var(--display);font-weight:800;font-size:32px;line-height:1;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tile .v small{font-size:.45em;letter-spacing:.05em;color:var(--muted);margin-left:.1em}
+.tile .k{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.tile .s{font-size:13px;color:var(--muted)}
+.tile.good .v{color:var(--good)}
+
+/* Trips */
+.trips-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;-webkit-tap-highlight-color:transparent}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.sm{min-height:36px;padding:6px 10px;font-size:14px;border-radius:10px}
+.month{display:flex;flex-direction:column;gap:8px}
+.month-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 2px 2px;border-bottom:1px solid var(--line)}
+.month-head .k{font-size:14px;font-weight:700;text-transform:capitalize}
+.month-head .v{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.trip{background:var(--surface);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:start}
+.trip .when{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.trip .km{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.trip .km small{font-size:.45em;color:var(--muted);letter-spacing:.05em;margin-left:.08em}
+.trip .when,.trip .km,.trip .tags{grid-column:1}
+.trip .mini{grid-column:2;grid-row:1/4;width:76px;height:52px;align-self:center}
+.trip .mini svg{width:100%;height:100%;display:block}
+.trip .mini .p{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.trip .mini .a{fill:var(--fg)} .trip .mini .b{fill:var(--rec)}
+.trip .mini.none{display:grid;place-items:center;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+.trip .tags{display:flex;flex-wrap:wrap;gap:6px;font-size:13px;color:var(--muted)}
+.trip .tags span{background:var(--surface-2);border-radius:999px;padding:2px 9px}
+.trip .tags .warn{color:var(--warn)}
+.trip .note{font-size:14px;color:var(--muted);font-style:italic;grid-column:1/-1;overflow-wrap:anywhere}
+.trip .acts{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
+.empty{background:var(--surface);border-radius:14px;padding:18px;text-align:center;color:var(--muted);font-size:15px}
+
+/* Sheets */
+dialog{border:0;padding:0;margin:auto 0 0;width:100%;max-width:100%;background:transparent;color:inherit}
+dialog::backdrop{background:rgba(5,10,25,.45)}
+.sheet{background:var(--surface);border-radius:22px 22px 0 0;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:14px;max-height:92vh;overflow:auto}
+.sheet .grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:13px;font-weight:700;color:var(--muted)}
+.field input,.field textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);min-height:46px}
+.field textarea{min-height:70px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;min-height:40px;user-select:none}
+.chip input{appearance:none;width:0;height:0;margin:0;position:absolute}
+.chip:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.chip:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.acts{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.acts .btn{flex:1}
+.sheet-big{font-family:var(--display);font-weight:800;font-size:56px;line-height:1;text-align:center;font-variant-numeric:tabular-nums}
+.sheet-big small{font-size:.4em;color:var(--muted);letter-spacing:.05em}
+.err{color:var(--danger);font-size:14px;font-weight:700}
+.rules{display:grid;gap:8px;font-size:14px;color:var(--muted);padding:0;margin:0;list-style:none}
+.rules li{display:flex;gap:10px}
+.rules li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--mark);margin-top:7px}
+.sep{height:1px;background:var(--line)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 16px;border-radius:12px;font-size:15px;font-weight:700;max-width:calc(100% - 32px);text-align:center;z-index:20;box-shadow:var(--shadow)}
+.banner{background:var(--accent-soft);color:var(--fg);border-radius:12px;padding:10px 12px;font-size:14px}
+.banner.warn{background:color-mix(in srgb,var(--warn) 18%,var(--surface));}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="disc" aria-hidden="true">AAC</div>
+      <div><h1>Carnet AAC</h1><p id="hello">Conduite accompagnée</p></div>
+    </div>
+    <button class="icon-btn" id="btnSettings" aria-label="Réglages" title="Réglages">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <div class="banner warn" id="secureBanner" hidden>Le GPS ne fonctionne que si cette page est ouverte depuis une adresse en <b>https</b>. Ouverte depuis un fichier, l’app marche mais sans suivi automatique.</div>
+
+  <section class="panel" id="panel" aria-live="polite">
+    <div class="switch-wrap">
+      <button class="switch" id="toggle" role="switch" aria-checked="false" aria-label="Suivi du trajet">
+        <span class="knob" aria-hidden="true"></span>
+        <span class="lbl off">OFF</span>
+        <span class="lbl on">ON</span>
+      </button>
+      <p class="switch-help" id="switchHelp">ON au départ, OFF à l’arrivée. Le trajet s’enregistre tout seul.</p>
+    </div>
+
+    <div class="live" id="live" hidden>
+      <div class="live-km num" id="liveKm">0,0<small>km</small></div>
+      <div class="live-meta"><span>Durée <b class="num" id="liveDur">0 min</b></span><span>Vitesse <b class="num" id="liveSpd">–</b></span></div>
+      <span class="gps" id="gps"><span class="dot"></span><span id="gpsTxt">Recherche du signal GPS…</span></span>
+    </div>
+
+    <div id="idle">
+      <div class="odo">
+        <div class="odo-num num" id="odoNum">0,0<small>km</small></div>
+        <div class="odo-sub" id="odoSub">au total</div>
+      </div>
+      <div class="meter" id="meter"></div>
+      <ol class="steps" id="steps" hidden>
+        <li>Au départ, ouvre l’app : le suivi démarre tout seul (dis oui pour la position la première fois).</li>
+        <li>Garde le téléphone bien calé, écran allumé, pendant tout le trajet.</li>
+        <li>À l’arrivée, appuie sur <b>OFF</b>. Si tu oublies, l’app s’arrête seule dès qu’elle te voit marcher ou la voiture garée depuis 10 min.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="tiles" id="tiles" aria-label="Chiffres clés"></section>
+
+  <section class="trips">
+    <div class="trips-head"><h2>Trajets</h2><button class="btn sm" id="btnManual">+ Ajouter à la main</button></div>
+    <div id="tripList"></div>
+  </section>
+</div>
+
+<dialog id="dlgTrip" aria-labelledby="tripTitle">
+  <form class="sheet" id="tripForm" method="dialog" novalidate>
+    <div class="grab"></div>
+    <h3 id="tripTitle">Trajet</h3>
+    <div class="sheet-big num" id="tripBig" hidden></div>
+    <p class="muted" id="tripHint" hidden></p>
+    <input type="hidden" name="id">
+    <input type="hidden" name="mode">
+    <div class="row3">
+      <div class="field"><label for="f-km">Kilomètres</label><input id="f-km" name="km" type="text" inputmode="decimal" placeholder="12,4" required></div>
+      <div class="field"><label for="f-date">Date</label><input id="f-date" name="date" type="date" required></div>
+      <div class="field"><label for="f-time">Départ</label><input id="f-time" name="time" type="time"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label for="f-dur">Durée (min)</label><input id="f-dur" name="dur" type="number" inputmode="numeric" min="0" step="1" placeholder="35"></div>
+      <div class="field"><label for="f-acc">Accompagnateur</label><input id="f-acc" name="acc" type="text" placeholder="Papa, Maman…"></div>
+    </div>
+    <div class="field"><label>Conditions</label>
+      <div class="chips" id="tripTags"></div>
+    </div>
+    <div class="field"><label for="f-note">Note</label><textarea id="f-note" name="note" placeholder="Créneau réussi, rond-point du Brézet…"></textarea></div>
+    <p class="err" id="tripErr" hidden></p>
+    <div class="acts"><button type="button" class="btn ghost" id="tripCancel">Plus tard</button><button type="submit" class="btn primary" id="tripSave">Enregistrer</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlgSettings" aria-labelledby="setTitle">
+  <form class="sheet" id="setForm" method="dialog" novalidate>
+    <div class="grab"></div>
+    <h3 id="setTitle">Réglages</h3>
+    <div class="row">
+      <div class="field"><label for="s-prenom">Prénom</label><input id="s-prenom" name="prenom" type="text" autocomplete="given-name"></div>
+      <div class="field"><label for="s-debut">Début de l’AAC</label><input id="s-debut" name="dateDebut" type="date"></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label for="s-obj">Objectif (km)</label><input id="s-obj" name="objectifKm" type="number" inputmode="numeric" min="1" step="1"></div>
+      <div class="field"><label for="s-jalon">1er RDV (km)</label><input id="s-jalon" name="jalonKm" type="number" inputmode="numeric" min="0" step="1"></div>
+      <div class="field"><label for="s-avant">Déjà faits (km)</label><input id="s-avant" name="kmAvant" type="number" inputmode="decimal" min="0" step="0.1"></div>
+    </div>
+    <p class="muted" style="font-size:13px">« Déjà faits » : les kilomètres parcourus avant d’utiliser l’app, comptés dans le total.</p>
+    <div class="field"><label>Automatismes</label>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" name="autoStart">Démarrer le suivi à l’ouverture</label>
+        <label class="chip"><input type="checkbox" name="autoStop">Arrêt auto (marche, voiture garée)</label>
+      </div>
+    </div>
+    <div class="acts"><button type="button" class="btn ghost" id="setCancel">Annuler</button><button type="submit" class="btn primary">Enregistrer</button></div>
+    <div class="sep"></div>
+    <h3>Sauvegarde</h3>
+    <p class="muted" style="font-size:14px">Les trajets sont gardés sur ce téléphone uniquement. Une sauvegarde de temps en temps évite de tout perdre.</p>
+    <div class="acts">
+      <button type="button" class="btn" id="btnExport">Télécharger la sauvegarde</button>
+      <label class="btn" for="importFile">Restaurer<input id="importFile" type="file" accept="application/json,.json" hidden></label>
+    </div>
+    <div class="acts"><button type="button" class="btn" id="btnShare">Partager le résumé</button></div>
+    <div class="sep"></div>
+    <h3>Rappels AAC</h3>
+    <ul class="rules">
+      <li>Au moins <b>3 000 km</b> et <b>1 an</b> de conduite accompagnée avant l’examen.</li>
+      <li>1er rendez-vous pédagogique entre 4 et 6 mois, vers 1 000 km. 2e rendez-vous en fin de période, après 3 000 km.</li>
+      <li>Vitesses limitées : 110 km/h sur autoroute, 100 km/h sur voies rapides.</li>
+      <li>Reporter les trajets dans le livret d’apprentissage papier reste obligatoire.</li>
+    </ul>
+    <p class="muted" style="font-size:13px">Tracé GPS : plus fiable avec l’écran allumé et le téléphone en vue du ciel (support pare-brise). L’app signale les trajets dont le tracé a été interrompu.</p>
+  </form>
+</dialog>
+
+<dialog id="dlgResume" aria-labelledby="resTitle">
+  <div class="sheet">
+    <div class="grab"></div>
+    <h3 id="resTitle">Un trajet était en cours</h3>
+    <p id="resTxt" class="muted"></p>
+    <div class="acts"><button type="button" class="btn danger" id="resDrop">Abandonner</button><button type="button" class="btn" id="resStop">Terminer</button><button type="button" class="btn primary" id="resGo">Reprendre</button></div>
+  </div>
+</dialog>
+
+<dialog id="dlgConfirm" aria-labelledby="cfTitle">
+  <div class="sheet">
+    <div class="grab"></div>
+    <h3 id="cfTitle">Confirmer</h3>
+    <p id="cfTxt" class="muted"></p>
+    <div class="acts"><button type="button" class="btn ghost" id="cfNo">Annuler</button><button type="button" class="btn danger" id="cfYes">Confirmer</button></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const KEY = 'carnet-aac-v1';
+const TAGS = [['nuit','Nuit'],['pluie','Pluie'],['ville','Ville'],['route','Route'],['autoroute','Autoroute']];
+const DEF = { settings:{prenom:'', dateDebut:'', objectifKm:3000, jalonKm:1000, kmAvant:0, autoStart:true, autoStop:true}, trips:[], current:null };
+const WALK_WINDOW_MS = 180000;   // 3 min of walking pace ends the trip
+const WALK_MIN_M = 150;          // ...if at least 150 m were covered on foot
+const WALK_MAX_KMH = 8;          // nothing faster than 8 km/h in that window
+const PARK_MS = 600000;          // 10 min without moving 100 m ends the trip
+const PARK_MIN_M = 100;
+
+const nf1 = new Intl.NumberFormat('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const nf0 = new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0});
+const dDay = new Intl.DateTimeFormat('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+const dTime = new Intl.DateTimeFormat('fr-FR',{hour:'2-digit',minute:'2-digit'});
+const dMonth = new Intl.DateTimeFormat('fr-FR',{month:'long',year:'numeric'});
+const dFull = new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+const fmtKm = m => nf1.format(m/1000);
+const fmtDur = s => { s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600), m=Math.floor((s%3600)/60); return h ? `${h} h ${String(m).padStart(2,'0')}` : `${m} min`; };
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const r6 = x => Math.round(x*1e6)/1e6;
+const toInputDate = d => { const z=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`; };
+const toInputTime = d => { const z=n=>String(n).padStart(2,'0'); return `${z(d.getHours())}:${z(d.getMinutes())}`; };
+
+/* ---------- storage ---------- */
+let S = load();
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(!raw) return JSON.parse(JSON.stringify(DEF));
+    const o = JSON.parse(raw);
+    return { settings:{...DEF.settings, ...(o.settings||{})}, trips:Array.isArray(o.trips)?o.trips:[], current:o.current||null };
+  }catch(e){ return JSON.parse(JSON.stringify(DEF)); }
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast('Impossible d’enregistrer (mémoire pleine ?)'); } }
+let saveTimer = null;
+function persistSoon(){ if(saveTimer) return; saveTimer = setTimeout(()=>{ saveTimer=null; save(); }, 4000); }
+
+/* ---------- geo ---------- */
+function hav(a,b){
+  const R=6371000, toR=x=>x*Math.PI/180;
+  const dLat=toR(b.lat-a.lat), dLng=toR(b.lng-a.lng);
+  const s=Math.sin(dLat/2)**2 + Math.cos(toR(a.lat))*Math.cos(toR(b.lat))*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.min(1,Math.sqrt(s)));
+}
+function thin(tr, max){ if(!tr || tr.length<=max) return tr||[]; const step=tr.length/max; const out=[]; for(let i=0;i<tr.length;i+=step) out.push(tr[Math.floor(i)]); if(out[out.length-1]!==tr[tr.length-1]) out.push(tr[tr.length-1]); return out; }
+
+let watchId = null, tick = null, wake = null, curSpeed = null;
+
+async function requestWake(){
+  try{ if('wakeLock' in navigator && !wake){ wake = await navigator.wakeLock.request('screen'); wake.addEventListener('release', ()=>{ wake=null; }); } }catch(e){}
+}
+function releaseWake(){ try{ if(wake){ wake.release(); wake=null; } }catch(e){} }
+
+function gpsStatus(txt, cls){
+  const g=$('#gps'); g.className='gps'+(cls?' '+cls:''); $('#gpsTxt').textContent=txt;
+}
+
+function startTrip(auto){
+  if(!('geolocation' in navigator)){ toast('Pas de GPS disponible dans ce navigateur'); return; }
+  S.current = { id:uid(), start:new Date().toISOString(), m:0, last:null, lastFix:0, lastMoveT:0, buf:[], trace:[], partial:false, pts:0, weak:0, auto:!!auto };
+  save(); beginWatch(); render();
+  if(auto && !document.querySelector('dialog[open]')) toast('Suivi lancé. OFF à l’arrivée.');
+}
+function beginWatch(){
+  if(watchId!=null) return;
+  gpsStatus('Recherche du signal GPS…');
+  try{
+    watchId = navigator.geolocation.watchPosition(onPos, onErr, {enableHighAccuracy:true, maximumAge:1000, timeout:30000});
+  }catch(e){ gpsStatus('GPS indisponible', 'bad'); }
+  requestWake();
+  if(tick) clearInterval(tick);
+  tick = setInterval(updateLive, 1000);
+}
+function endWatch(){
+  if(watchId!=null){ try{ navigator.geolocation.clearWatch(watchId); }catch(e){} watchId=null; }
+  if(tick){ clearInterval(tick); tick=null; }
+  releaseWake(); curSpeed=null;
+}
+function onErr(err){
+  if(err && err.code===1){
+    gpsStatus('Position refusée', 'bad');
+    toast('Autorise la position pour cette page dans les réglages du téléphone, puis réessaie.');
+  } else {
+    gpsStatus('Signal GPS perdu… on réessaie', 'weak');
+  }
+}
+function onPos(p){
+  const c=S.current; if(!c) return;
+  const {latitude:lat, longitude:lng, accuracy:acc} = p.coords;
+  const t = p.timestamp || Date.now();
+  if(!isFinite(lat) || !isFinite(lng)) return;
+  if(c.lastFix && t - c.lastFix > 60000) c.partial = true; // GPS was silent for more than a minute
+  c.lastFix = t; c.pts++;
+  if(!(acc <= 60)){
+    c.weak++;
+    if(c.pts >= 5 && c.weak === c.pts && acc > 300) gpsStatus('Position approximative : choisis « Position précise » pour Chrome dans les paramètres Android', 'bad');
+    else gpsStatus(`Signal GPS faible (±${Math.round(acc)} m)`, 'weak');
+    return;
+  }
+  gpsStatus(`GPS ok · ±${Math.round(acc)} m`, 'ok');
+  const cur={lat,lng,t,acc};
+  if(!c.last){ c.last=cur; c.trace.push([r6(lat),r6(lng)]); persistSoon(); return; }
+  const dt=(t-c.last.t)/1000; if(dt<=0) return;
+  const d=hav(c.last,cur);
+  if(d/dt > 75) return;                                  // 270 km/h: a GPS glitch, not the car
+  const minMove = Math.max(10, 1.2*Math.max(acc, c.last.acc)); // below the noise floor: standing still
+  if(d < minMove) return;
+  c.m += d; c.last = cur; c.lastMoveT = t;
+  curSpeed = (p.coords.speed!=null && p.coords.speed>=0) ? p.coords.speed*3.6 : d/dt*3.6;
+  if(!Array.isArray(c.buf)) c.buf=[];
+  c.buf.push([t, Math.round(c.m), Math.round(curSpeed*10)/10]);
+  while(c.buf.length && t - c.buf[0][0] > 900000) c.buf.shift();   // keep the last 15 min
+  const lt=c.trace[c.trace.length-1];
+  if(!lt || hav({lat:lt[0],lng:lt[1]},cur) >= 80) c.trace.push([r6(lat),r6(lng)]);
+  persistSoon(); updateLive();
+  if(S.settings.autoStop) checkWalking(c, t);
+}
+/* She forgot OFF and is walking away: 3 min at walking pace, trip trimmed back to where the walk began. */
+function checkWalking(c, t){
+  const win=(c.buf||[]).filter(b => t-b[0] <= WALK_WINDOW_MS);
+  if(win.length < 6) return;
+  const first=win[0];
+  if(t - first[0] < WALK_WINDOW_MS*0.9) return;
+  const dist=c.m - first[1];
+  const vmax=Math.max(...win.map(b=>b[2]));
+  if(dist >= WALK_MIN_M && vmax < WALK_MAX_KMH) finishTrip({endMs:first[0], m:first[1], reason:'marche'});
+}
+/* The car has been parked: earliest buffered point since which less than 100 m was covered. */
+function parkedSince(c, now){
+  const b=c.buf||[]; let p=null;
+  for(const q of b){ if(c.m - q[1] < PARK_MIN_M){ p=q; break; } }
+  if(!p && c.lastMoveT) p=[c.lastMoveT, Math.round(c.m), 0];
+  return p && now - p[0] >= PARK_MS ? p : null;
+}
+function checkParked(c, now){
+  if(!S.settings.autoStop) return;
+  const p=parkedSince(c, now);
+  if(p) finishTrip({endMs:p[0], m:p[1], reason:'arret'});
+}
+function autoTags(start){ const h=new Date(start).getHours(); return (h>=21 || h<7) ? ['nuit'] : []; }
+function stopTrip(){ finishTrip({}); }
+function finishTrip(opts){
+  endWatch();
+  const c=S.current; if(!c){ render(); return; }
+  if(saveTimer){ clearTimeout(saveTimer); saveTimer=null; }
+  const endMs = opts.endMs ?? Date.now();
+  const m = opts.m ?? c.m;
+  const dur=(endMs - Date.parse(c.start))/1000;
+  if(m < 50 || dur <= 0){ S.current=null; save(); render(); if(!opts.reason) toast('Trajet trop court (moins de 50 m), rien d’enregistré.'); return; }
+  const trip={ id:c.id, start:c.start, end:new Date(endMs).toISOString(), m:Math.round(m), dur:Math.round(dur), tags:autoTags(c.start), acc:'', note:'', trace:thin(c.trace,400), partial:!!c.partial, manual:false, auto:opts.reason||'' };
+  S.trips.unshift(trip); S.current=null; save(); render();
+  if(opts.reason==='marche') toast(`Suivi arrêté tout seul : marche détectée. Trajet enregistré jusqu’à ${dTime.format(new Date(endMs))}.`, 6000);
+  else if(opts.reason==='arret') toast(`Suivi arrêté tout seul : voiture à l’arrêt depuis ${dTime.format(new Date(endMs))}. Trajet enregistré.`, 6000);
+  openTripSheet('fresh', trip);
+}
+function dropTrip(){ endWatch(); S.current=null; save(); render(); }
+
+/* ---------- derived ---------- */
+function totals(){
+  const t=S.trips; const m=t.reduce((a,x)=>a+(+x.m||0),0);
+  const kmAvant=Math.max(0,+S.settings.kmAvant||0);
+  const dur=t.reduce((a,x)=>a+(+x.dur||0),0);
+  const by=k=>t.filter(x=>(x.tags||[]).includes(k)).reduce((a,x)=>a+x.m,0);
+  const now=new Date(); const ym=`${now.getFullYear()}-${now.getMonth()}`;
+  const month=t.filter(x=>{const d=new Date(x.start);return `${d.getFullYear()}-${d.getMonth()}`===ym;}).reduce((a,x)=>a+x.m,0);
+  return { totalKm:m/1000+kmAvant, n:t.length, dur, nuit:by('nuit'), auto:by('autoroute'), pluie:by('pluie'), month, kmAvant };
+}
+
+/* ---------- render ---------- */
+function render(){
+  const rec=!!S.current && watchId!=null;
+  const st=S.settings, T=totals();
+  const obj=Math.max(1,+st.objectifKm||3000), jalon=Math.max(0,+st.jalonKm||0);
+
+  $('#toggle').setAttribute('aria-checked', rec?'true':'false');
+  $('#panel').classList.toggle('rec', rec);
+  $('#live').hidden=!rec; $('#idle').hidden=rec;
+  $('#switchHelp').textContent = rec ? (st.autoStop!==false ? 'Trajet en cours. OFF à l’arrivée (ou arrêt auto si tu oublies).' : 'Trajet en cours. Appuie sur OFF à l’arrivée.') : (st.autoStart!==false ? 'Le suivi démarre à l’ouverture de l’app. Sinon ON au départ, OFF à l’arrivée.' : 'ON au départ, OFF à l’arrivée. Le trajet s’enregistre tout seul.');
+  $('#steps').hidden = rec || S.trips.length>0;
+
+  const hello=$('#hello');
+  if(rec) hello.textContent = `Trajet en cours depuis ${dTime.format(new Date(S.current.start))}`;
+  else if(st.prenom) hello.textContent = st.dateDebut ? `${st.prenom} · AAC commencée le ${dFull.format(new Date(st.dateDebut+'T12:00:00'))}` : `${st.prenom} · conduite accompagnée`;
+  else hello.textContent = 'Conduite accompagnée · ajoute ton prénom dans les réglages';
+
+  $('#odoNum').innerHTML = `${esc(nf1.format(T.totalKm))}<small>km</small>`;
+  const reste=Math.max(0,obj-T.totalKm);
+  $('#odoSub').innerHTML = reste>0 ? `sur ${esc(nf0.format(obj))} km<br>il reste <b class="num">${esc(nf0.format(reste))} km</b>` : `objectif de ${esc(nf0.format(obj))} km atteint`;
+
+  const pct=Math.min(100, T.totalKm/obj*100);
+  const jp=jalon>0 && jalon<obj ? jalon/obj*100 : null;
+  $('#meter').innerHTML = `
+    <div class="meter-track"><div class="meter-fill" style="width:${pct.toFixed(1)}%"></div>${jp!=null?`<div class="meter-tick" style="left:${jp.toFixed(1)}%"></div>`:''}</div>
+    <div class="meter-labels"><span class="l">0 km</span>${jp!=null?`<span class="t" style="left:${jp.toFixed(1)}%">${esc(nf0.format(jalon))} km<span>1er RDV</span></span>`:''}<span class="r">${esc(nf0.format(obj))} km</span></div>`;
+  $('#meter').setAttribute('aria-label', `${nf1.format(T.totalKm)} km sur ${nf0.format(obj)}`);
+
+  renderTiles(T, obj);
+  renderTrips();
+  if(rec) updateLive();
+}
+function renderTiles(T, obj){
+  const st=S.settings; const tiles=[];
+  const reste=Math.max(0,obj-T.totalKm);
+  tiles.push({k:'Il reste', v:`${nf0.format(reste)}<small>km</small>`, s:`${Math.round(T.totalKm/obj*100)} % de l’objectif`, cls:reste===0?'good':''});
+  if(st.dateDebut){
+    const d0=new Date(st.dateDebut+'T12:00:00'); const d1=new Date(d0); d1.setFullYear(d1.getFullYear()+1);
+    const today=new Date(); today.setHours(12,0,0,0);
+    const days=Math.ceil((d1-today)/86400000);
+    tiles.push(days>0 ? {k:'1 an minimum', v:`J<small>−${days}</small>`, s:`jusqu’au ${dFull.format(d1)}`} : {k:'1 an minimum', v:'OK', s:`depuis le ${dFull.format(d1)}`, cls:'good'});
+  } else {
+    tiles.push({k:'1 an minimum', v:'–', s:'renseigne la date de début'});
+  }
+  tiles.push({k:'Trajets', v:nf0.format(T.n), s:T.n?`${nf1.format(T.totalKm-T.kmAvant)} km enregistrés`:'aucun pour l’instant'});
+  tiles.push({k:'Au volant', v:T.dur>=3600?`${nf0.format(Math.floor(T.dur/3600))}<small>h</small>`:`${nf0.format(Math.round(T.dur/60))}<small>min</small>`, s:T.n?`${fmtDur(T.dur/T.n)} par trajet`:'temps cumulé'});
+  tiles.push({k:'Ce mois-ci', v:`${fmtKm(T.month)}<small>km</small>`, s:dMonth.format(new Date())});
+  tiles.push({k:'De nuit', v:`${fmtKm(T.nuit)}<small>km</small>`, s:'conduite nocturne'});
+  tiles.push({k:'Autoroute', v:`${fmtKm(T.auto)}<small>km</small>`, s:'voies rapides incluses'});
+  tiles.push({k:'Sous la pluie', v:`${fmtKm(T.pluie)}<small>km</small>`, s:'conditions dégradées'});
+  $('#tiles').innerHTML = tiles.map(t=>`<div class="tile ${t.cls||''}"><span class="k">${esc(t.k)}</span><span class="v num">${t.v}</span><span class="s">${esc(t.s)}</span></div>`).join('');
+}
+function traceSvg(tr){
+  if(!tr || tr.length<2) return `<div class="mini none">sans tracé</div>`;
+  const lat0=tr.reduce((a,p)=>a+p[0],0)/tr.length; const kx=Math.cos(lat0*Math.PI/180);
+  const xs=tr.map(p=>p[1]*kx), ys=tr.map(p=>p[0]);
+  const minX=Math.min(...xs), maxX=Math.max(...xs), minY=Math.min(...ys), maxY=Math.max(...ys);
+  const W=76,H=52,P=5; const sx=(maxX-minX)||1e-9, sy=(maxY-minY)||1e-9;
+  const s=Math.min((W-2*P)/sx,(H-2*P)/sy);
+  const ox=(W-sx*s)/2, oy=(H-sy*s)/2;
+  const pts=tr.map((p,i)=>[ox+(xs[i]-minX)*s, H-(oy+(ys[i]-minY)*s)]);
+  const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join('');
+  const a=pts[0], b=pts[pts.length-1];
+  return `<div class="mini"><svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><path class="p" d="${d}"/><circle class="a" cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="3"/><circle class="b" cx="${b[0].toFixed(1)}" cy="${b[1].toFixed(1)}" r="3"/></svg></div>`;
+}
+function renderTrips(){
+  const list=$('#tripList');
+  if(!S.trips.length){ list.innerHTML=`<div class="empty">Aucun trajet pour l’instant. Le premier arrive dès que tu passes sur ON… puis OFF.</div>`; return; }
+  const trips=[...S.trips].sort((a,b)=>a.start<b.start?1:-1);
+  const groups=new Map();
+  for(const t of trips){ const d=new Date(t.start); const k=`${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}`; if(!groups.has(k)) groups.set(k,{label:dMonth.format(d),m:0,items:[]}); const g=groups.get(k); g.m+=t.m; g.items.push(t); }
+  const tagName=Object.fromEntries(TAGS);
+  list.innerHTML=[...groups.values()].map(g=>`
+    <div class="month"><div class="month-head"><span class="k">${esc(g.label)}</span><span class="v">${esc(fmtKm(g.m))} km · ${g.items.length} trajet${g.items.length>1?'s':''}</span></div>
+    ${g.items.map(t=>{
+      const d0=new Date(t.start), d1=t.end?new Date(t.end):null;
+      const tags=(t.tags||[]).map(k=>`<span>${esc(tagName[k]||k)}</span>`);
+      if(t.acc) tags.push(`<span>avec ${esc(t.acc)}</span>`);
+      if(t.manual) tags.push(`<span>saisi à la main</span>`);
+      if(t.partial) tags.push(`<span class="warn">tracé interrompu</span>`);
+      if(t.auto) tags.push(`<span>arrêt auto</span>`);
+      return `<article class="trip" data-id="${esc(t.id)}">
+        <div class="when">${esc(dDay.format(d0))} · ${esc(dTime.format(d0))}${d1&&t.dur?` → ${esc(dTime.format(d1))} · ${esc(fmtDur(t.dur))}`:''}</div>
+        ${traceSvg(t.trace)}
+        <div class="km num">${esc(fmtKm(t.m))}<small>km</small></div>
+        <div class="tags">${tags.join('')}</div>
+        ${t.note?`<div class="note">${esc(t.note)}</div>`:''}
+        <div class="acts"><button class="btn sm ghost" data-edit="${esc(t.id)}">Modifier</button><button class="btn sm ghost" data-del="${esc(t.id)}">Supprimer</button></div>
+      </article>`;
+    }).join('')}</div>`).join('');
+}
+function updateLive(){
+  const c=S.current; if(!c) return;
+  $('#liveKm').innerHTML=`${esc(fmtKm(c.m))}<small>km</small>`;
+  $('#liveDur').textContent=fmtDur((Date.now()-new Date(c.start))/1000);
+  const fresh = c.lastFix && Date.now()-c.lastFix < 8000;
+  $('#liveSpd').textContent = (fresh && curSpeed!=null) ? `${nf0.format(curSpeed)} km/h` : '–';
+  if(watchId==null || S.settings.autoStop===false) return;
+  if(c.m >= 50) checkParked(c, Date.now());
+  else if(Date.now()-Date.parse(c.start) > PARK_MS) finishTrip({reason:'arret'});   // opened by mistake, never drove: dropped quietly
+}
+
+/* ---------- sheets ---------- */
+function toast(msg, ms=3200){ const t=$('#toast'); t.textContent=msg; t.hidden=false; clearTimeout(t._h); t._h=setTimeout(()=>{t.hidden=true;}, ms); }
+function openDialog(d){ if(typeof d.showModal==='function'){ if(!d.open) d.showModal(); } else d.setAttribute('open',''); }
+function closeDialog(d){ if(d.open) d.close(); }
+
+function openTripSheet(mode, trip){
+  const f=$('#tripForm'); f.reset(); $('#tripErr').hidden=true;
+  f.elements.mode.value=mode; f.elements.id.value=trip?trip.id:'';
+  $('#tripTags').innerHTML=TAGS.map(([k,l])=>`<label class="chip"><input type="checkbox" name="tags" value="${k}">${l}</label>`).join('');
+  const big=$('#tripBig'), hint=$('#tripHint');
+  if(mode==='fresh'){ $('#tripTitle').textContent='Trajet enregistré'; big.hidden=false; big.innerHTML=`${esc(fmtKm(trip.m))}<small> km</small>`; hint.hidden=false; hint.textContent='Ajoute les conditions et une note si tu veux, c’est optionnel.'; $('#tripCancel').textContent='Plus tard'; }
+  else if(mode==='edit'){ $('#tripTitle').textContent='Modifier le trajet'; big.hidden=true; hint.hidden=true; $('#tripCancel').textContent='Annuler'; }
+  else { $('#tripTitle').textContent='Ajouter un trajet à la main'; big.hidden=true; hint.hidden=false; hint.textContent='Pour un trajet fait sans l’app (relevé au compteur).'; $('#tripCancel').textContent='Annuler'; }
+  const d=trip?new Date(trip.start):new Date();
+  f.elements.km.value=trip?nf1.format(trip.m/1000):'';
+  f.elements.date.value=toInputDate(d);
+  f.elements.time.value=toInputTime(d);
+  f.elements.dur.value=trip&&trip.dur?Math.round(trip.dur/60):'';
+  f.elements.acc.value=trip?(trip.acc||''):'';
+  f.elements.note.value=trip?(trip.note||''):'';
+  for(const cb of f.querySelectorAll('input[name=tags]')) cb.checked=!!(trip&&(trip.tags||[]).includes(cb.value));
+  openDialog($('#dlgTrip'));
+}
+$('#tripForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const f=e.target; const mode=f.elements.mode.value, id=f.elements.id.value;
+  const km=parseFloat(String(f.elements.km.value).replace(/\s/g,'').replace(',','.'));
+  const err=$('#tripErr');
+  if(!(km>0)){ err.textContent='Indique un nombre de kilomètres.'; err.hidden=false; return; }
+  if(!f.elements.date.value){ err.textContent='Indique la date du trajet.'; err.hidden=false; return; }
+  const start=new Date(`${f.elements.date.value}T${f.elements.time.value||'12:00'}:00`);
+  if(isNaN(start)){ err.textContent='Date ou heure invalide.'; err.hidden=false; return; }
+  const dur=Math.max(0,Math.round((+f.elements.dur.value||0)*60));
+  const tags=[...f.querySelectorAll('input[name=tags]:checked')].map(x=>x.value);
+  const base={ start:start.toISOString(), end:new Date(start.getTime()+dur*1000).toISOString(), m:Math.round(km*1000), dur, tags, acc:f.elements.acc.value.trim(), note:f.elements.note.value.trim() };
+  if(mode==='manual'){ S.trips.unshift({ id:uid(), ...base, trace:[], partial:false, manual:true }); toast('Trajet ajouté.'); }
+  else { const t=S.trips.find(x=>x.id===id); if(t){ Object.assign(t, base); toast('Trajet mis à jour.'); } }
+  save(); render(); closeDialog($('#dlgTrip'));
+});
+$('#tripCancel').addEventListener('click', ()=>closeDialog($('#dlgTrip')));
+$('#btnManual').addEventListener('click', ()=>openTripSheet('manual', null));
+
+$('#tripList').addEventListener('click', e=>{
+  const ed=e.target.closest('[data-edit]'); if(ed){ const t=S.trips.find(x=>x.id===ed.dataset.edit); if(t) openTripSheet('edit', t); return; }
+  const del=e.target.closest('[data-del]'); if(del){ const t=S.trips.find(x=>x.id===del.dataset.del); if(!t) return;
+    confirmSheet(`Supprimer le trajet du ${dDay.format(new Date(t.start))} (${fmtKm(t.m)} km) ? Il ne sera plus compté dans le total.`, ()=>{ S.trips=S.trips.filter(x=>x.id!==t.id); save(); render(); toast('Trajet supprimé.'); });
+  }
+});
+let cfCb=null;
+function confirmSheet(txt, cb){ $('#cfTxt').textContent=txt; cfCb=cb; openDialog($('#dlgConfirm')); }
+$('#cfNo').addEventListener('click', ()=>closeDialog($('#dlgConfirm')));
+$('#cfYes').addEventListener('click', ()=>{ closeDialog($('#dlgConfirm')); if(cfCb){ const f=cfCb; cfCb=null; f(); } });
+
+/* settings */
+$('#btnSettings').addEventListener('click', ()=>{
+  const f=$('#setForm'); const st=S.settings;
+  f.elements.prenom.value=st.prenom||''; f.elements.dateDebut.value=st.dateDebut||'';
+  f.elements.objectifKm.value=st.objectifKm||3000; f.elements.jalonKm.value=st.jalonKm??1000; f.elements.kmAvant.value=st.kmAvant||0;
+  f.elements.autoStart.checked=st.autoStart!==false; f.elements.autoStop.checked=st.autoStop!==false;
+  openDialog($('#dlgSettings'));
+});
+$('#setForm').addEventListener('submit', e=>{
+  e.preventDefault(); const f=e.target;
+  S.settings={ prenom:f.elements.prenom.value.trim(), dateDebut:f.elements.dateDebut.value||'', objectifKm:Math.max(1,Math.round(+f.elements.objectifKm.value||3000)), jalonKm:Math.max(0,Math.round(+f.elements.jalonKm.value||0)), kmAvant:Math.max(0,+String(f.elements.kmAvant.value).replace(',','.')||0), autoStart:f.elements.autoStart.checked, autoStop:f.elements.autoStop.checked };
+  save(); render(); closeDialog($('#dlgSettings')); toast('Réglages enregistrés.');
+});
+$('#setCancel').addEventListener('click', ()=>closeDialog($('#dlgSettings')));
+
+$('#btnExport').addEventListener('click', ()=>{
+  const data=JSON.stringify({app:'carnet-aac',version:1,exportedAt:new Date().toISOString(),settings:S.settings,trips:S.trips},null,1);
+  const blob=new Blob([data],{type:'application/json'}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=`carnet-aac-${toInputDate(new Date())}.json`; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 10000);
+});
+$('#importFile').addEventListener('change', e=>{
+  const file=e.target.files && e.target.files[0]; if(!file) return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const o=JSON.parse(rd.result); if(!o || !Array.isArray(o.trips)) throw new Error('format');
+      const ids=new Set(S.trips.map(t=>t.id)); let added=0;
+      for(const t of o.trips){ if(t && t.id && !ids.has(t.id) && typeof t.m==='number' && t.start){ S.trips.push(t); ids.add(t.id); added++; } }
+      if(o.settings && typeof o.settings==='object') S.settings={...DEF.settings, ...S.settings, ...o.settings};
+      save(); render(); toast(added?`${added} trajet${added>1?'s':''} restauré${added>1?'s':''}.`:'Rien de nouveau à restaurer.');
+    }catch(err){ toast('Ce fichier n’est pas une sauvegarde valide.'); }
+    e.target.value='';
+  };
+  rd.readAsText(file);
+});
+$('#btnShare').addEventListener('click', async ()=>{
+  const T=totals(); const st=S.settings; const obj=+st.objectifKm||3000;
+  const txt=`${st.prenom?st.prenom+' · ':''}Conduite accompagnée : ${nf1.format(T.totalKm)} km sur ${nf0.format(obj)} (${T.n} trajet${T.n>1?'s':''}, ${fmtDur(T.dur)} au volant). Il reste ${nf0.format(Math.max(0,obj-T.totalKm))} km.`;
+  try{ if(navigator.share){ await navigator.share({text:txt}); return; } }catch(e){ if(e && e.name==='AbortError') return; }
+  try{ await navigator.clipboard.writeText(txt); toast('Résumé copié.'); }catch(e){ toast(txt, 6000); }
+});
+
+/* switch */
+$('#toggle').addEventListener('click', ()=>{
+  const rec=!!S.current && watchId!=null;
+  if(rec) stopTrip(); else startTrip();
+});
+
+/* resume a trip the app was closed on */
+$('#resGo').addEventListener('click', ()=>{ closeDialog($('#dlgResume')); beginWatch(); render(); });
+$('#resStop').addEventListener('click', ()=>{ closeDialog($('#dlgResume')); stopTrip(); });
+$('#resDrop').addEventListener('click', ()=>{ closeDialog($('#dlgResume')); dropTrip(); toast('Trajet abandonné.'); });
+
+let hiddenAt=0;
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState==='hidden'){ hiddenAt=Date.now(); return; }
+  if(watchId!=null){ requestWake(); updateLive(); return; }
+  // Coming back after a while with nothing running: the app was opened to drive.
+  if(!S.current && S.settings.autoStart!==false && location.hash!=='#voir' && hiddenAt && Date.now()-hiddenAt > 180000) startTrip(true);
+});
+window.addEventListener('pagehide', ()=>{ if(saveTimer){ clearTimeout(saveTimer); saveTimer=null; } if(S.current) save(); });
+
+/* boot */
+if(!window.isSecureContext) $('#secureBanner').hidden=false;
+if('serviceWorker' in navigator && window.isSecureContext && location.protocol!=='file:'){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+render();
+const wantsStart = location.hash==='#go' || (S.settings.autoStart!==false && location.hash!=='#voir');
+if(S.current){
+  const c=S.current; const sinceFix=Date.now()-(c.lastFix||Date.parse(c.start));
+  if(sinceFix > PARK_MS){
+    // The app was closed with the trip still on: close it where the car last stopped.
+    const p=parkedSince(c, Date.now()) || [c.lastMoveT||c.lastFix||Date.parse(c.start), Math.round(c.m), 0];
+    finishTrip({endMs:p[0], m:p[1], reason:'arret'});
+    if(wantsStart) startTrip(true);
+  } else {
+    $('#resTxt').textContent=`Démarré ${dDay.format(new Date(c.start))} à ${dTime.format(new Date(c.start))}, ${fmtKm(c.m)} km comptés. Reprendre continue à compter à partir de maintenant.`;
+    openDialog($('#dlgResume'));
+  }
+} else if(wantsStart){
+  startTrip(true);
+}
+})();
+</script>
+</body>
+</html>
