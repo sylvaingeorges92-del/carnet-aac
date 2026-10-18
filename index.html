@@ -123,6 +123,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{
 .btn.ghost{background:transparent}
 .btn.danger{color:var(--danger);border-color:var(--danger)}
 .btn.sm{min-height:36px;padding:6px 10px;font-size:14px;border-radius:10px}
+.btn.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.report{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--accent-soft);border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:8px}
+.copybox{width:100%;min-height:200px;font:14px/1.5 var(--body);padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);resize:vertical}
 .month{display:flex;flex-direction:column;gap:8px}
 .month-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 2px 2px;border-bottom:1px solid var(--line)}
 .month-head .k{font-size:14px;font-weight:700;text-transform:capitalize}
@@ -222,6 +225,7 @@ dialog::backdrop{background:rgba(5,10,25,.45)}
 
   <section class="trips">
     <div class="trips-head"><h2>Trajets</h2><button class="btn sm" id="btnManual">+ Ajouter à la main</button></div>
+    <div id="reportBar" hidden></div>
     <div id="tripList"></div>
   </section>
 </div>
@@ -248,8 +252,19 @@ dialog::backdrop{background:rgba(5,10,25,.45)}
     </div>
     <div class="field"><label for="f-note">Note</label><textarea id="f-note" name="note" placeholder="Créneau réussi, rond-point du Brézet…"></textarea></div>
     <p class="err" id="tripErr" hidden></p>
+    <button type="button" class="btn" id="tripCopy">Copier pour le livret (Sarool)</button>
     <div class="acts"><button type="button" class="btn ghost" id="tripCancel">Plus tard</button><button type="submit" class="btn primary" id="tripSave">Enregistrer</button></div>
   </form>
+</dialog>
+
+<dialog id="dlgCopy" aria-labelledby="cpTitle">
+  <div class="sheet">
+    <div class="grab"></div>
+    <h3 id="cpTitle">À coller dans le livret</h3>
+    <p class="muted" style="font-size:14px">La copie automatique n’a pas marché : appuie longuement sur le texte, « Tout sélectionner », puis « Copier ».</p>
+    <textarea class="copybox" id="cpText" readonly></textarea>
+    <div class="acts"><button type="button" class="btn primary" id="cpClose">Fermer</button></div>
+  </div>
 </dialog>
 
 <dialog id="dlgSettings" aria-labelledby="setTitle">
@@ -487,6 +502,33 @@ function totals(){
   return { totalKm:m/1000+kmAvant, n:t.length, dur, nuit:by('nuit'), auto:by('autoroute'), pluie:by('pluie'), month, kmAvant };
 }
 
+/* ---------- livret / Sarool ---------- */
+const dLong = new Intl.DateTimeFormat('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+function cumulAt(trip){ const kmAvant=Math.max(0,+S.settings.kmAvant||0); return kmAvant + S.trips.filter(x=>x.start<trip.start || x.id===trip.id).reduce((a,x)=>a+x.m,0)/1000; }
+function tripText(t){
+  const tagName=Object.fromEntries(TAGS); const d0=new Date(t.start), d1=t.end?new Date(t.end):null;
+  const lines=[`Trajet conduite accompagnée – ${dLong.format(d0)}`];
+  lines.push(`Départ ${dTime.format(d0)}` + (d1&&t.dur?` – Arrivée ${dTime.format(d1)} (${fmtDur(t.dur)})`:''));
+  lines.push(`Distance : ${fmtKm(t.m)} km`);
+  const tags=(t.tags||[]).map(k=>tagName[k]||k); lines.push(`Conditions : ${tags.length?tags.join(', ').toLowerCase():'jour'}`);
+  if(t.acc) lines.push(`Accompagnateur : ${t.acc}`);
+  if(t.note) lines.push(`Remarques : ${t.note}`);
+  lines.push(`Total cumulé AAC : ${fmtKm(Math.round(cumulAt(t)*1000))} km`);
+  return lines.join('\n');
+}
+async function copyText(txt, okMsg){
+  try{ await navigator.clipboard.writeText(txt); toast(okMsg||'Copié. Colle-le dans Sarool.'); return true; }
+  catch(e){ const ta=$('#cpText'); ta.value=txt; openDialog($('#dlgCopy')); try{ ta.focus(); ta.select(); }catch(_){} return false; }
+}
+$('#cpClose').addEventListener('click', ()=>closeDialog($('#dlgCopy')));
+function renderReportBar(){
+  const todo=S.trips.filter(t=>!t.reported);
+  const bar=$('#reportBar');
+  if(!todo.length){ bar.hidden=true; bar.innerHTML=''; return; }
+  bar.hidden=false; bar.className='report';
+  bar.innerHTML=`<span><b>${todo.length}</b> trajet${todo.length>1?'s':''} à reporter dans Sarool</span><button class="btn sm" id="btnCopyAll">Copier ${todo.length>1?'les '+todo.length:'le trajet'}</button>`;
+}
+
 /* ---------- render ---------- */
 function render(){
   const rec=!!S.current && watchId!=null;
@@ -516,6 +558,7 @@ function render(){
   $('#meter').setAttribute('aria-label', `${nf1.format(T.totalKm)} km sur ${nf0.format(obj)}`);
 
   renderTiles(T, obj);
+  renderReportBar();
   renderTrips();
   if(rec) updateLive();
 }
@@ -574,7 +617,7 @@ function renderTrips(){
         <div class="km num">${esc(fmtKm(t.m))}<small>km</small></div>
         <div class="tags">${tags.join('')}</div>
         ${t.note?`<div class="note">${esc(t.note)}</div>`:''}
-        <div class="acts"><button class="btn sm ghost" data-edit="${esc(t.id)}">Modifier</button><button class="btn sm ghost" data-del="${esc(t.id)}">Supprimer</button></div>
+        <div class="acts"><button class="btn sm ghost" data-copy="${esc(t.id)}">Copier</button><button class="btn sm ${t.reported?'on':'ghost'}" data-rep="${esc(t.id)}" aria-pressed="${t.reported?'true':'false'}">${t.reported?'Reporté ✓':'À reporter'}</button><button class="btn sm ghost" data-edit="${esc(t.id)}">Modifier</button><button class="btn sm ghost" data-del="${esc(t.id)}">Supprimer</button></div>
       </article>`;
     }).join('')}</div>`).join('');
 }
@@ -612,30 +655,44 @@ function openTripSheet(mode, trip){
   for(const cb of f.querySelectorAll('input[name=tags]')) cb.checked=!!(trip&&(trip.tags||[]).includes(cb.value));
   openDialog($('#dlgTrip'));
 }
-$('#tripForm').addEventListener('submit', e=>{
-  e.preventDefault();
-  const f=e.target; const mode=f.elements.mode.value, id=f.elements.id.value;
+function commitTripForm(f){
+  const mode=f.elements.mode.value, id=f.elements.id.value;
   const km=parseFloat(String(f.elements.km.value).replace(/\s/g,'').replace(',','.'));
   const err=$('#tripErr');
-  if(!(km>0)){ err.textContent='Indique un nombre de kilomètres.'; err.hidden=false; return; }
-  if(!f.elements.date.value){ err.textContent='Indique la date du trajet.'; err.hidden=false; return; }
+  if(!(km>0)){ err.textContent='Indique un nombre de kilomètres.'; err.hidden=false; return null; }
+  if(!f.elements.date.value){ err.textContent='Indique la date du trajet.'; err.hidden=false; return null; }
   const start=new Date(`${f.elements.date.value}T${f.elements.time.value||'12:00'}:00`);
-  if(isNaN(start)){ err.textContent='Date ou heure invalide.'; err.hidden=false; return; }
+  if(isNaN(start)){ err.textContent='Date ou heure invalide.'; err.hidden=false; return null; }
   const dur=Math.max(0,Math.round((+f.elements.dur.value||0)*60));
   const tags=[...f.querySelectorAll('input[name=tags]:checked')].map(x=>x.value);
   const base={ start:start.toISOString(), end:new Date(start.getTime()+dur*1000).toISOString(), m:Math.round(km*1000), dur, tags, acc:f.elements.acc.value.trim(), note:f.elements.note.value.trim() };
-  if(mode==='manual'){ S.trips.unshift({ id:uid(), ...base, trace:[], partial:false, manual:true }); toast('Trajet ajouté.'); }
-  else { const t=S.trips.find(x=>x.id===id); if(t){ Object.assign(t, base); toast('Trajet mis à jour.'); } }
-  save(); render(); closeDialog($('#dlgTrip'));
+  let t;
+  if(mode==='manual'){ t={ id:uid(), ...base, trace:[], partial:false, manual:true, reported:false }; S.trips.unshift(t); f.elements.mode.value='edit'; f.elements.id.value=t.id; }
+  else { t=S.trips.find(x=>x.id===id); if(t) Object.assign(t, base); }
+  save(); render(); return t||null;
+}
+$('#tripForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const mode=e.target.elements.mode.value;
+  const t=commitTripForm(e.target); if(!t) return;
+  toast(mode==='manual'?'Trajet ajouté.':'Trajet enregistré.'); closeDialog($('#dlgTrip'));
 });
+$('#tripCopy').addEventListener('click', ()=>{ const t=commitTripForm($('#tripForm')); if(t) copyText(tripText(t)); });
 $('#tripCancel').addEventListener('click', ()=>closeDialog($('#dlgTrip')));
 $('#btnManual').addEventListener('click', ()=>openTripSheet('manual', null));
 
 $('#tripList').addEventListener('click', e=>{
+  const cp=e.target.closest('[data-copy]'); if(cp){ const t=S.trips.find(x=>x.id===cp.dataset.copy); if(t) copyText(tripText(t)); return; }
+  const rp=e.target.closest('[data-rep]'); if(rp){ const t=S.trips.find(x=>x.id===rp.dataset.rep); if(t){ t.reported=!t.reported; save(); render(); } return; }
   const ed=e.target.closest('[data-edit]'); if(ed){ const t=S.trips.find(x=>x.id===ed.dataset.edit); if(t) openTripSheet('edit', t); return; }
   const del=e.target.closest('[data-del]'); if(del){ const t=S.trips.find(x=>x.id===del.dataset.del); if(!t) return;
     confirmSheet(`Supprimer le trajet du ${dDay.format(new Date(t.start))} (${fmtKm(t.m)} km) ? Il ne sera plus compté dans le total.`, ()=>{ S.trips=S.trips.filter(x=>x.id!==t.id); save(); render(); toast('Trajet supprimé.'); });
   }
+});
+$('#reportBar').addEventListener('click', e=>{
+  if(!e.target.closest('#btnCopyAll')) return;
+  const todo=S.trips.filter(t=>!t.reported).sort((a,b)=>a.start<b.start?-1:1);
+  copyText(todo.map(tripText).join('\n\n')).then(ok=>{ if(ok) confirmSheet(`Marquer ${todo.length>1?'ces '+todo.length+' trajets':'ce trajet'} comme reporté${todo.length>1?'s':''} dans Sarool ?`, ()=>{ for(const t of todo) t.reported=true; save(); render(); }); });
 });
 let cfCb=null;
 function confirmSheet(txt, cb){ $('#cfTxt').textContent=txt; cfCb=cb; openDialog($('#dlgConfirm')); }
